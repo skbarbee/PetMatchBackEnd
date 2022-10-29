@@ -1,5 +1,4 @@
 // import dependencies
-const e = require('express')
 const mongoose = require('mongoose')
 
 // rating is a subdoc NOT a model
