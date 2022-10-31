@@ -6,6 +6,30 @@ const petSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		img: {
+			type: String,
+			required: false,
+		},
+		typeOfPet: {
+			type: String,
+			required: true,
+		},
+		breed: {
+			type: String,
+			required: true,
+		},
+		likes: {
+			type: String,
+			required: true,
+		},
+		available: {
+			type: Boolean,
+			required: true,
+		},
+		rating: {
+			type: Subdocument,
+			required: false,
+		},
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
