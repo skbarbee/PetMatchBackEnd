@@ -6,18 +6,18 @@ const mongoose = require('mongoose')
 const ratingSchema = new mongoose.Schema({
 
 	scale: {
-		type: Number
+		type: Number,
 	},
 	comment: {
-		type: String
+		type: String,
 	},
 	meetAgain: {
-		type: Boolean
+		type: Boolean,
 	},
 	author: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
     },
 }, {
 		timestamps: true,
