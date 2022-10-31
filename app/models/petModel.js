@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const ratingSchema = require('./rating')
+
 
 const petSchema = new mongoose.Schema(
 	{
@@ -26,10 +28,7 @@ const petSchema = new mongoose.Schema(
 			type: Boolean,
 			required: true,
 		},
-		rating: {
-			type: Subdocument,
-			required: false,
-		},
+		rating: [ratingSchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
