@@ -47,7 +47,7 @@ router.get('/petmatch', (req, res, next) => {
 // ////////////////////////////
 // Show
 ///////////////////////////////
-// /pets/:id
+// /petmatch/:id
 router.get('/petmatch/:id', (req, res, next) => {
     Pet.findById(req.params.id)
     .populate('owner')
@@ -63,8 +63,8 @@ router.get('/petmatch/:id', (req, res, next) => {
 // ////////////////////////////
 // Create
 ///////////////////////////////
-// /pets
-router.post('/petmatch/newpet', requireToken, (req, res, next) => {
+// /petmatch
+router.post('/petmatch', requireToken, (req, res, next) => {
     req.body.pet.owner = req.user.id
 
     // one the front end I HAVE TO SEND a pet as the top level key
