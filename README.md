@@ -48,9 +48,9 @@ As a user I want the ability to...
 
 ## Schedule
 
-- Friday 10/28: Pitch idea, Seed db, Get the back end going
-- Saturday 10/29: Testing with postman and make sure Back End is nearly good to go.
-- Sunday 10/30: Finish up Back End and start on Front End React
+- Friday 10/28: Pitch idea, Get the back end going
+- Saturday 10/29: PetRoutes and Reviews Routes
+- Sunday 10/30: Decide whether or not to use Socket-io
 - Monday 10/31: Front End
 - Tuesday 11/1: Front End React, should be near MVP
 - Wednesday 11/2: Goal: MVP status, Work on Front End Styling 

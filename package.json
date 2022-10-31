@@ -19,6 +19,7 @@
     "mongodb": "^4.11.0",
     "mongoose": "^6.7.0",
     "passport": "^0.6.0",
-    "passport-http-bearer": "^1.0.1"
+    "passport-http-bearer": "^1.0.1",
+    "react-icons": "^4.6.0"
   }
 }
