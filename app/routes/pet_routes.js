@@ -47,7 +47,7 @@ router.get('/petmatch', (req, res, next) => {
 // ////////////////////////////
 // Show
 ///////////////////////////////
-// /pets/:id
+// /petmatch/:id
 router.get('/petmatch/:id', (req, res, next) => {
     Pet.findById(req.params.id)
     .populate('owner')
