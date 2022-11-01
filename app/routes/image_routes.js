@@ -21,11 +21,15 @@ const router = express.Router()
 
 router.post('/image/:petId',removeBlanks, async (req, res, next)=>{
 	try{
-		const fileStr = req.body.image //maybe data
+		const fileStr = req.body.image
+
+		//console.log('this is the file\n', fileStr) 
     	const petId = req.params.petId
-		const uploadedResponse = await cloudinary.uploader.upload(fileStr)
-		console.log(uploadedResponse)
-		Pet.findByIdAndUpdate(petId, { img: uploadedResponse },
+		const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
+			width: 300, fetch_format: "auto", crop: "scale"
+		})
+		console.log('this is the uploaded info\n', uploadedResponse.url)
+		Pet.findByIdAndUpdate(petId,  {img: uploadedResponse.url} ,
 			function (err, doc) {
 					if (err){
 					console.log(err)
