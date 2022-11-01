@@ -27,7 +27,7 @@ const petSchema = new mongoose.Schema(
 		},
 		available: {
 			type: Boolean,
-			required: true,
+			required: false,
 		},
 		rating: [ratingSchema],
 		owner: {
