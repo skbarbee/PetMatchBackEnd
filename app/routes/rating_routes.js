@@ -22,10 +22,10 @@ const router = express.Router()
 
 //pulling in Mongoose model for ratings
 // const Rating = require('..models/rating')
-const Pet = require('../models/petModel')
-const router = express.Router()
+// const Pet = require('../models/petModel')
+// const router = express.Router()
 
-const removeBlanks = require('../../lib/remove_blank_fields')
+// const removeBlanks = require('../../lib/remove_blank_fields')
 
 //POST -> anybody can leave a rating for a pet (For now)
 router.post('/rating/:petId', removeBlanks, (req, res, next) => {
