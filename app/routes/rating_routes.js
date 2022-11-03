@@ -30,13 +30,10 @@ router.post('/rating/:petId', removeBlanks, (req, res, next) => {
     const petId = req.params.petId
     // find the pet by its id
     Pet.findById(petId)
-        .then((pet)=>{console.log({pet: pet})})
-        .then(handle404)
-        // add the rating to the pet
-        .then(pet => {
-            // push the rating into the pet's rating array and return the saved pet
+        .then((pet)=>{
             pet.rating.push(rating)
-
+            console.log("this is pet.rating\n", pet.rating)
+            console.log(rating)
             return pet.save()
         })
         .then(pet => res.status(201).json({ pet: pet }))
