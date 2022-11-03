@@ -28,7 +28,7 @@ router.post('/image/:petId',removeBlanks, async (req, res, next)=>{
 		const uploadedResponse = await cloudinary.uploader.upload(fileStr,{
 			width: 300,
 		})
-		console.log('this is the uploaded info\n', uploadedResponse.url)
+		console.log('this is the uploaded info\n', uploadedResponse)
 		Pet.findByIdAndUpdate(petId,  {img: uploadedResponse.url} ,
 			function (err, doc) {
 					if (err){

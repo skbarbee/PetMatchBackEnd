@@ -38,7 +38,7 @@ router.get('/petmatch', (req, res, next) => {
         .then(pets => {
             return pets.map(pet => pet)
         })
-        .then(pets =>  {
+        .then(pets => {
             res.status(200).json({ pets: pets })
         })
         .catch(next)
@@ -50,14 +50,16 @@ router.get('/petmatch', (req, res, next) => {
 // /petmatch/:id
 router.get('/petmatch/:id', (req, res, next) => {
     Pet.findById(req.params.id)
-    .populate('owner')
-    .then(handle404)
-    .then(pet => {
-        res.status(200).json({ pet: pet })
-    })
-    .catch(next)
+        .populate('owner')
+        .then(handle404)
+        .then(pet => {
+            res.status(200).json({ pet: pet })
+        })
+        .catch(next)
 
 })
+
+
 
 
 // ////////////////////////////
@@ -70,10 +72,10 @@ router.post('/petmatch', requireToken, (req, res, next) => {
     // one the front end I HAVE TO SEND a pet as the top level key
     // pet: {name: '', type: ''}
     Pet.create(req.body.pet)
-    .then(pet => {
-        res.status(201).json({ pet: pet })
-    })
-    .catch(next)
+        .then(pet => {
+            res.status(201).json({ pet: pet })
+        })
+        .catch(next)
     // .catch(error => next(error))
 
 })
@@ -83,16 +85,16 @@ router.post('/petmatch', requireToken, (req, res, next) => {
 ///////////////////////////////
 // PATCH /pets/:id
 router.patch('/petmatch/:id', requireToken, removeBlanks, (req, res, next) => {
-	delete req.body.pet.owner
+    delete req.body.pet.owner
 
-	Pet.findById(req.params.id)
-		.then(handle404)
-		.then(pet => {
-			requireOwnership(req, pet)
-			return pet.updateOne(req.body.pet)
-		})
-		.then(() => res.sendStatus(204))
-		.catch(next)
+    Pet.findById(req.params.id)
+        .then(handle404)
+        .then(pet => {
+            requireOwnership(req, pet)
+            return pet.updateOne(req.body.pet)
+        })
+        .then(() => res.sendStatus(204))
+        .catch(next)
 })
 
 // ////////////////////////////
@@ -100,14 +102,14 @@ router.patch('/petmatch/:id', requireToken, removeBlanks, (req, res, next) => {
 ///////////////////////////////
 // DELETE /pets/:id
 router.delete('/petmatch/:id', requireToken, (req, res, next) => {
-	Pet.findById(req.params.id)
-		.then(handle404)
-		.then((pet) => {
-			requireOwnership(req, pet)
-			pet.deleteOne()
-		})
-		.then(() => res.sendStatus(204))
-		.catch(next)
+    Pet.findById(req.params.id)
+        .then(handle404)
+        .then((pet) => {
+            requireOwnership(req, pet)
+            pet.deleteOne()
+        })
+        .then(() => res.sendStatus(204))
+        .catch(next)
 })
 
 
