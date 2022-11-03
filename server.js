@@ -2,6 +2,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const bodyParser = require("body-parser")
+const compression = require('compression')
 
 // require route files
 // const exampleRoutes = require('./app/routes/example_routes')
@@ -65,8 +67,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // fixing "413 Request Entity Too Large" errors
-app.use(express.json({limit: "10mb", extended: true}))
-app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
+// app.use(express.json({limit: "10mb", extended: true}))
+// app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
+app.use(bodyParser.json({limit: '50mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
+app.use(compression())
 
 // log each request as it comes in for debugging
 app.use(requestLogger)
