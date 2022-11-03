@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 const meetSchema = new mongoose.Schema({
     person: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'User',
+        type: String,
         require: true
     },
     when: {

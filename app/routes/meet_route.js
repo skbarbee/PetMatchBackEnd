@@ -13,12 +13,10 @@ const router = express.Router()
 
 
 
-router.post('/petmatch/:id',requireToken ,removeBlanks, (req, res, next) => {
-  
-    const meet = req.body.meets
-  console.log('this is the post' , meet)
-    
-    Pet.findById(req.params.id)
+router.post('/meets/:petId',removeBlanks, (req, res, next) => {
+    const meet = req.body.meet
+    const petId = req.params.petId
+    Pet.findById(petId)
         .then(handle404)
         
         .then(pet => {
@@ -29,6 +27,48 @@ router.post('/petmatch/:id',requireToken ,removeBlanks, (req, res, next) => {
         })
         .then(pet => res.status(201).json({ pet: pet }))
        
+        .catch(next)
+})
+
+
+router.patch('/meets/:petId/:meetId', requireToken, removeBlanks, (req, res, next) => {
+    const { petId,meetId } = req.params
+
+    
+    Pet.findById(petId)
+        .then(handle404)
+        .then(pet => {
+           
+            const theMeet = pet.meets.id(meetId)
+            requireOwnership(req, pet)
+
+            theMeet.set(req.body.meet)
+
+            return pet.save()
+        })
+        .then(pet => res.sendStatus(204))
+        .catch(next)
+})
+
+router.delete('/meets/:petId/:meetId', requireToken, (req, res, next) => {
+    const { petId,meetId } = req.params
+
+    
+    Pet.findById(petId)
+        .then(handle404)
+        .then(pet => {
+            
+            const theMeet = pet.meets.id(meetId)
+
+           
+            requireOwnership(req, pet)
+
+            
+            theMeet.remove()
+
+            return pet.save()
+        })
+        .then(pet => res.sendStatus(204))
         .catch(next)
 })
 
