@@ -29,16 +29,16 @@ const petSchema = new mongoose.Schema(
 			type: Boolean,
 			required: true,
 		},
+		meets: [meetSchema],
+		owner: {
+			type: mongoose.Schema.Types.ObjectId,
+        	ref:'User',
+		},
 		rating: [ratingSchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			required: true,
-		},
-		meets: [meetSchema],
-		owner: {
-			type: mongoose.Schema.Types.ObjectId,
-        	ref:'User',
 		},
 		
 	},
