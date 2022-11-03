@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const meetSchema = require('./meetModel')
+const meetSchema = require('./meet')
 const ratingSchema = require('./rating')
 
 
@@ -40,7 +40,6 @@ const petSchema = new mongoose.Schema(
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
         	ref:'User',
-        	require: true
 		},
 		
 	},
