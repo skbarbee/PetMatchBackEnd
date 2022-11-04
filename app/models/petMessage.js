@@ -11,6 +11,9 @@ const petMessageSchema = new mongoose.Schema({
         required: true
     },
     message: {
+        type: String,
+    },
+    daysAvailable: {
         type: String
     }
 
