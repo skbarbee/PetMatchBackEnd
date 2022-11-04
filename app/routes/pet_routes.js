@@ -53,6 +53,7 @@ router.get('/petmatch/:id', (req, res, next) => {
         .populate('owner')
         .then(handle404)
         .then(pet => {
+            console.log(pet)
             res.status(200).json({ pet: pet })
         })
         .catch(next)
