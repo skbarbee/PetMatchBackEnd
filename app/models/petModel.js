@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const meetSchema = require('./meet')
 const ratingSchema = require('./rating')
+const petMessageSchema = require('./petMessage')
 
 
 const petSchema = new mongoose.Schema(
@@ -27,15 +28,18 @@ const petSchema = new mongoose.Schema(
 		},
 		available: {
 			type: Boolean,
-			required: true,
+			required: false,
 		},
 		rating: [ratingSchema],
+		meets: [meetSchema],
+		petMessages: [petMessageSchema],
+		meets: [meetSchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			required: true,
 		},
-		meets: [meetSchema],
+		
 		
 		
 	},

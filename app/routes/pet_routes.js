@@ -65,7 +65,7 @@ router.get('/petmatch/:id', (req, res, next) => {
 // ////////////////////////////
 // Create
 ///////////////////////////////
-// /petmatch
+// /pets
 router.post('/petmatch', requireToken, (req, res, next) => {
     req.body.pet.owner = req.user.id
 
