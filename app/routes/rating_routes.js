@@ -42,6 +42,30 @@ router.post('/rating/:petId', removeBlanks, (req, res, next) => {
         .catch(next)
 })
 
+//Update
+router.patch('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
+    const { petId, ratingId } = req.params
+ // find the pet
+    Pet.findById(petId)
+    .then(handle404)
+    .then(pet => {
+        // get the specific toy
+        const theRating = pet.rating.id(ratingId)
+
+        // make sure the user owns the pet
+        requireOwnership(req, pet)
+
+        // update that toy with the req body
+        theRating.set(req.body.rating)
+
+        return pet.save()
+    })
+    .then(pet => res.sendStatus(204))
+    .catch(next)
+})
+
+
+
 // DESTROY a toy
 // DELETE -> /toys/<pet_id>/<toy_id>
 router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
