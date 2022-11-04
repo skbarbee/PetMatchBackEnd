@@ -80,6 +80,7 @@ app.use(requestLogger)
 // app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(petRoutes)
+app.use(ratingRoutes)
 app.use(imageRoutes)
 app.use(ratingRoutes)
 
