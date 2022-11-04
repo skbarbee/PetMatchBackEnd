@@ -41,7 +41,19 @@ const petSchema = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
+		toObject: { virtuals: true },
+        toJSON: { virtuals: true }
 	}
 )
+
+	petSchema.virtual('ratingIcon').get(function () {
+	if (this.typeOfPet === "DOG") {
+		return " out of 5 bones"
+	} else if  (this.typeOfPet ==="CAT"){
+		return 	" out of 5 fish-bones"
+	} else {
+		return " out of 5 stars"
+	}
+})
 
 module.exports = mongoose.model('Pet', petSchema)
