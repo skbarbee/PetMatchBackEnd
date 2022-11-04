@@ -36,10 +36,7 @@ const petSchema = new mongoose.Schema(
 			required: true,
 		},
 		meets: [meetSchema],
-		owner: {
-			type: mongoose.Schema.Types.ObjectId,
-        	ref:'User',
-		},
+		
 		
 	},
 	{
