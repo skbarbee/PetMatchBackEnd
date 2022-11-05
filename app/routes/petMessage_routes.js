@@ -62,15 +62,19 @@ router.post('/petMessages/:petId', removeBlanks, (req, res, next) => {
 // PATCH -> /petMessages/<pet_id>//<petMessage_id>
 router.patch('/petMessages/:petId/:petMessageId', requireToken, removeBlanks, (req, res, next) => {
     const { petId, petMessageId } = req.params
+    //console.log('this is the petId\n', petId)
+    //console.log('this is the petMessageId\n', petMessageId)
+   
 
     Pet.findById(petId)
         .then(handle404)
         .then(pet => {
             const thePetMessage = pet.petMessages.id(petMessageId)
-
+            //console.log('this is thePetMessage\n', thePetMessage)
             requireOwnership(req, pet)
 
-            thePetMessage.set(req.body.petMessage)
+            thePetMessage.set(req.body.petMessages)
+            //console.log('this is the newPetMessage\n', req.body.petMessages)
 
             return pet.save()
 
