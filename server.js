@@ -11,12 +11,9 @@ const userRoutes = require('./app/routes/user_routes')
 const petRoutes = require('./app/routes/pet_routes')
 const imageRoutes = require('./app/routes/image_routes')
 const ratingRoutes = require('./app/routes/rating_routes')
-<<<<<<< HEAD
 const meetRoutes = require('./app/routes/meet_route')
-=======
 const petMessageRoutes = require('./app/routes/petMessage_routes')
 
->>>>>>> 210db553d53c21f0cf8bdd5336d424124407c610
 // require middleware
 const errorHandler = require('./lib/error_handler')
 const replaceToken = require('./lib/replace_token')
