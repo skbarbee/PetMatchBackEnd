@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const meetSchema = require('./meet')
 const ratingSchema = require('./rating')
+const petMessageSchema = require('./petMessage')
 
 
 const petSchema = new mongoose.Schema(
@@ -27,7 +28,7 @@ const petSchema = new mongoose.Schema(
 		},
 		available: {
 			type: Boolean,
-			required: true,
+			required: false,
 		},
 		meets: [meetSchema],
 		owner: {
@@ -35,6 +36,9 @@ const petSchema = new mongoose.Schema(
         	ref:'User',
 		},
 		rating: [ratingSchema],
+		meets: [meetSchema],
+		petMessages: [petMessageSchema],
+		meets: [meetSchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
@@ -44,7 +48,19 @@ const petSchema = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
+		toObject: { virtuals: true },
+        toJSON: { virtuals: true }
 	}
 )
+
+	petSchema.virtual('ratingIcon').get(function () {
+	if (this.typeOfPet === "DOG") {
+		return " out of 5 bones"
+	} else if  (this.typeOfPet ==="CAT"){
+		return 	" out of 5 fish-bones"
+	} else {
+		return " out of 5 stars"
+	}
+})
 
 module.exports = mongoose.model('Pet', petSchema)

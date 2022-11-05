@@ -23,16 +23,9 @@ const ratingSchema = new mongoose.Schema({
 		timestamps: true,
 		toObject: { virtuals: true },
 		toJSON: { virtuals: true }
-	})
+	}
+)
 	
-	ratingSchema.virtual('ratingIcon').get(function () {
-		if (this.type == "dog") {
-			return " out of 5 bones"
-		} else if  (this.type == "cat"){
-			return 	" out of 5 fish-bones"
-		} else {
-			return " out of 5 stars"
-		}
-	})
+	
 	
 	module.exports = ratingSchema

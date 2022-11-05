@@ -20,12 +20,9 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
-//pulling in Mongoose model for ratings
-// const Rating = require('..models/rating')
-// const Pet = require('../models/petModel')
-// const router = express.Router()
 
-// const removeBlanks = require('../../lib/remove_blank_fields')
+
+
 
 //POST -> anybody can leave a rating for a pet (For now)
 router.post('/rating/:petId', removeBlanks, (req, res, next) => {
@@ -42,6 +39,54 @@ router.post('/rating/:petId', removeBlanks, (req, res, next) => {
         })
         .then(pet => res.status(201).json({ pet: pet }))
         // pass to the next thing
+        .catch(next)
+})
+
+//Update
+router.patch('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
+    const { petId, ratingId } = req.params
+ // find the pet
+    Pet.findById(petId)
+    .then(handle404)
+    .then(pet => {
+        // get the specific toy
+        const theRating = pet.rating.id(ratingId)
+
+        // make sure the user owns the pet
+        requireOwnership(req, pet)
+
+        // update that toy with the req body
+        theRating.set(req.body.rating)
+
+        return pet.save()
+    })
+    .then(pet => res.sendStatus(204))
+    .catch(next)
+})
+
+
+
+// DESTROY a toy
+// DELETE -> /toys/<pet_id>/<toy_id>
+router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
+    const { petId, ratingId } = req.params
+
+    // find the pet
+    Pet.findById(petId)
+        .then(handle404)
+        .then(pet => {
+            // get the specific toy
+            const theRating = pet.rating.id(ratingId)
+
+            // make sure the user owns the pet
+            requireOwnership(req, pet)
+
+            // update that toy with the req body
+            theRating.remove()
+
+            return pet.save()
+        })
+        .then(pet => res.sendStatus(204))
         .catch(next)
 })
 

@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require("body-parser")
-const compression = require('compression')
+// const compression = require('compression')
 
 // require route files
 // const exampleRoutes = require('./app/routes/example_routes')
@@ -11,7 +11,12 @@ const userRoutes = require('./app/routes/user_routes')
 const petRoutes = require('./app/routes/pet_routes')
 const imageRoutes = require('./app/routes/image_routes')
 const ratingRoutes = require('./app/routes/rating_routes')
+<<<<<<< HEAD
 const meetRoutes = require('./app/routes/meet_route')
+=======
+const petMessageRoutes = require('./app/routes/petMessage_routes')
+
+>>>>>>> 210db553d53c21f0cf8bdd5336d424124407c610
 // require middleware
 const errorHandler = require('./lib/error_handler')
 const replaceToken = require('./lib/replace_token')
@@ -67,11 +72,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // fixing "413 Request Entity Too Large" errors
-// app.use(express.json({limit: "10mb", extended: true}))
-// app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
+app.use(express.json({limit: "10mb", extended: true}))
+app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
 app.use(bodyParser.json({limit: '50mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
-app.use(compression())
+// app.use(compression())
 
 // log each request as it comes in for debugging
 app.use(requestLogger)
@@ -84,6 +89,8 @@ app.use(ratingRoutes)
 app.use(imageRoutes)
 app.use(ratingRoutes)
 app.use(meetRoutes)
+app.use(petMessageRoutes)
+
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
