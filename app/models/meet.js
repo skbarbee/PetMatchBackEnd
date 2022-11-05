@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const meetSchema = new mongoose.Schema({
-    person: {
+    name: {
         type: String,
         require: true
     },
-    when: {
+    date: {
         type: String,
     },
-    where: {
+    address: {
         type: String,
     }, 
 }, {

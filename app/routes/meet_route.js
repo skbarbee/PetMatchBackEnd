@@ -11,66 +11,80 @@ const removeBlanks = require('../../lib/remove_blank_fields')
 const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
-
-
-router.post('/meets/:petId',removeBlanks, (req, res, next) => {
+router.post('/meets/:petId', removeBlanks, (req, res, next) => {
+    // get the rating from req.body
+    console.log('this is req.body', req.body)
     const meet = req.body.meet
     const petId = req.params.petId
+    // find the pet by its id
     Pet.findById(petId)
-        .then(handle404)
-        
-        .then(pet => {
-            
+        .then((pet)=>{
             pet.meets.push(meet)
-
             return pet.save()
         })
         .then(pet => res.status(201).json({ pet: pet }))
+        // pass to the next thing
+        .catch(next)
+})
+
+// router.post('/meets/:petId',removeBlanks, (req, res, next) => {
+//     const meet = req.body.meet
+//     const petId = req.params.petId
+//     Pet.findById(petId)
+//         .then(handle404)
+        
+//         .then(pet => {
+            
+//             pet.meets.push(meet)
+
+//             return pet.save()
+//         })
+//         .then(pet => res.status(201).json({ pet: pet }))
        
-        .catch(next)
-})
+//         .catch(next)
+// })
 
 
-router.patch('/meets/:petId/:meetId', requireToken, removeBlanks, (req, res, next) => {
-    const { petId,meetId } = req.params
-
-    
-    Pet.findById(petId)
-        .then(handle404)
-        .then(pet => {
-           
-            const theMeet = pet.meets.id(meetId)
-            requireOwnership(req, pet)
-
-            theMeet.set(req.body.meet)
-
-            return pet.save()
-        })
-        .then(pet => res.sendStatus(204))
-        .catch(next)
-})
-
-router.delete('/meets/:petId/:meetId', requireToken, (req, res, next) => {
-    const { petId,meetId } = req.params
+// router.patch('/meets/:petId/:meetId', requireToken, removeBlanks, (req, res, next) => {
+//     const { petId,meetId } = req.params
 
     
-    Pet.findById(petId)
-        .then(handle404)
-        .then(pet => {
+//     Pet.findById(petId)
+//         .then(handle404)
+//         .then(pet => {
+           
+//             const theMeet = pet.meets.id(meetId)
+//             requireOwnership(req, pet)
+
+//             theMeet.set(req.body.meet)
+
+//             return pet.save()
+//         })
+//         .then(pet => res.sendStatus(204))
+//         .catch(next)
+// })
+
+// router.delete('/meets/:petId/:meetId', requireToken, (req, res, next) => {
+//     const { petId,meetId } = req.params
+
+    
+//     Pet.findById(petId)
+//         .then(handle404)
+//         .then(pet => {
             
-            const theMeet = pet.meets.id(meetId)
+//             const theMeet = pet.meets.id(meetId)
 
            
-            requireOwnership(req, pet)
+//             requireOwnership(req, pet)
 
             
-            theMeet.remove()
+//             theMeet.remove()
 
-            return pet.save()
-        })
-        .then(pet => res.sendStatus(204))
-        .catch(next)
-})
+//             return pet.save()
+//         })
+//         .then(pet => res.sendStatus(204))
+//         .catch(next)
+// })
 
 
 // export router
