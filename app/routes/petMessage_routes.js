@@ -14,11 +14,13 @@ const router = express.Router()
 
 // only need Create Update and Delete
 
+// ////////////////////////////////////////////
 // POST -> anybody can leave a pet a message
+///////////////////////////////////////////////
 // POST /petMessages/<pet_id>
 router.post('/petMessages/:petId', removeBlanks, (req, res, next) => {
     // get the petMessage from req.body
-    const petMessages= req.body.petMessages
+    const petMessages = req.body.petMessages
     const petId = req.params.petId
     // find the pet by it's ID
     Pet.findByIdAndUpdate(petId)
@@ -32,39 +34,17 @@ router.post('/petMessages/:petId', removeBlanks, (req, res, next) => {
         })
         .then(pet => res.status(201).json({ pet: pet }))
         .catch(next)
-        // pass to the next thing
+    // pass to the next thing
 })
 
-// Sarah and Emily tried below route to get messages to post.
-// router.post('/petMessages/:petId', removeBlanks, (req, res, next) => {
-//     try{
-//     const petMessages = req.body.petMessages 
-//     const petId = req.params.petId
-
-//     Pet.findByIdAndUpdate(petId,  {petMessages: petMessages} ,
-//         function (err, doc) {
-//                 if (err){
-//                 console.log(err)
-//                 }
-//                 else{
-//                 console.log("Updated Pet : ", doc);
-//                 }
-//                 })
-//     res.json({msg: "success"})
-//     } catch (error){
-//         console.log(error)
-//         res.status(500).json({err:error})
-//     }
-// })
-
-
+// //////////////////////////////////////////
 // UPDATE a petMessage
+// //////////////////////////////////////////
 // PATCH -> /petMessages/<pet_id>//<petMessage_id>
 router.patch('/petMessages/:petId/:petMessageId', requireToken, removeBlanks, (req, res, next) => {
     const { petId, petMessageId } = req.params
     //console.log('this is the petId\n', petId)
     //console.log('this is the petMessageId\n', petMessageId)
-   
 
     Pet.findById(petId)
         .then(handle404)
@@ -83,8 +63,9 @@ router.patch('/petMessages/:petId/:petMessageId', requireToken, removeBlanks, (r
         .catch(next)
 })
 
-
+// //////////////////////////////////////////
 // DESTROY a petMessage
+// //////////////////////////////////////////
 // DELETE -> /petMessages/<pet_id>//<petMessage_id>
 router.delete('/petMessages/:petId/:petMessageId', requireToken, (req, res, next) => {
     const { petId, petMessageId } = req.params
@@ -104,5 +85,7 @@ router.delete('/petMessages/:petId/:petMessageId', requireToken, (req, res, next
         .catch(next)
 })
 
-// export router
+/////////////////////////////////////////
+// Export Router
+/////////////////////////////////////////
 module.exports = router

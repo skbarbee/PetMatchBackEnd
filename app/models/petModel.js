@@ -3,7 +3,6 @@ const meetSchema = require('./meet')
 const ratingSchema = require('./rating')
 const petMessageSchema = require('./petMessage')
 
-
 const petSchema = new mongoose.Schema(
 	{
 		name: {
@@ -39,22 +38,19 @@ const petSchema = new mongoose.Schema(
 			ref: 'User',
 			required: true,
 		},
-		
-		
-		
 	},
 	{
 		timestamps: true,
 		toObject: { virtuals: true },
-        toJSON: { virtuals: true }
+		toJSON: { virtuals: true }
 	}
 )
 
-	petSchema.virtual('ratingIcon').get(function () {
+petSchema.virtual('ratingIcon').get(function () {
 	if (this.typeOfPet === "DOG") {
 		return " out of 5 bones"
-	} else if  (this.typeOfPet ==="CAT"){
-		return 	" out of 5 fish-bones"
+	} else if (this.typeOfPet === "CAT") {
+		return " out of 5 fish-bones"
 	} else {
 		return " out of 5 stars"
 	}
