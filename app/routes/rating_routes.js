@@ -21,9 +21,6 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 
-
-
-
 //POST -> anybody can leave a rating for a pet (For now)
 router.post('/rating/:petId', requireToken, removeBlanks, (req, res, next) => {
     req.body.rating.author = JSON.stringify(req.user.email)
