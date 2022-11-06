@@ -83,7 +83,7 @@ app.use(userRoutes)
 app.use(petRoutes)
 app.use(ratingRoutes)
 app.use(imageRoutes)
-app.use(ratingRoutes)
+//app.use(ratingRoutes)
 app.use(petMessageRoutes)
 
 

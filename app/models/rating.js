@@ -15,9 +15,9 @@ const ratingSchema = new mongoose.Schema({
 		type: Boolean,
 	},
 	author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        //required: true,
+        type: String,
+		ref: 'User',
+		required: true,
     },
 }, {
 		timestamps: true,
@@ -29,3 +29,4 @@ const ratingSchema = new mongoose.Schema({
 	
 	
 	module.exports = ratingSchema
+	
