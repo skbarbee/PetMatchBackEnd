@@ -49,13 +49,13 @@ router.patch('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
     Pet.findById(petId)
     .then(handle404)
     .then(pet => {
-        // get the specific toy
+        // get the specific rating
         const theRating = pet.rating.id(ratingId)
 
         // make sure the user owns the pet
         requireOwnership(req, pet)
 
-        // update that toy with the req body
+        // update that rating with the req body
         theRating.set(req.body.rating)
 
         return pet.save()
@@ -66,8 +66,8 @@ router.patch('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
 
 
 
-// DESTROY a toy
-// DELETE -> /toys/<pet_id>/<toy_id>
+// DESTROY a rating
+// DELETE -> /ratings/<pet_id>/<rating_id>
 router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
     const { petId, ratingId } = req.params
 
@@ -75,13 +75,13 @@ router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
     Pet.findById(petId)
         .then(handle404)
         .then(pet => {
-            // get the specific toy
+            // get the specific rating
             const theRating = pet.rating.id(ratingId)
 
             // make sure the user owns the pet
             requireOwnership(req, pet)
 
-            // update that toy with the req body
+            // update that rating with the req body
             theRating.remove()
 
             return pet.save()
