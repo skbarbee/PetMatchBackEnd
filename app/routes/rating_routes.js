@@ -20,11 +20,9 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
-
-
-
-
-//POST -> anybody can leave a rating for a pet (For now)
+// //////////////////////////////////////////
+//POST -> anybody can leave a rating for a pet 
+// //////////////////////////////////////////
 router.post('/rating/:petId', requireToken, removeBlanks, (req, res, next) => {
     req.body.rating.author = JSON.stringify(req.user.email)
     // get the rating from req.body
@@ -32,7 +30,7 @@ router.post('/rating/:petId', requireToken, removeBlanks, (req, res, next) => {
     const petId = req.params.petId
     // find the pet by its id
     Pet.findById(petId)
-        .then((pet)=>{
+        .then((pet) => {
             pet.rating.push(rating)
             console.log("this is pet.rating\n", pet.rating)
             console.log(rating)
@@ -43,32 +41,35 @@ router.post('/rating/:petId', requireToken, removeBlanks, (req, res, next) => {
         .catch(next)
 })
 
+// //////////////////////////////////////////
 //Update
+// //////////////////////////////////////////
 router.patch('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
     const { petId, ratingId } = req.params
- // find the pet
+    // find the pet
     Pet.findById(petId)
-    .then(handle404)
-    .then(pet => {
-        // get the specific toy
-        const theRating = pet.rating.id(ratingId)
+        .then(handle404)
+        .then(pet => {
+            // get the specific rating
+            const theRating = pet.rating.id(ratingId)
 
-        // make sure the user owns the pet
-        requireOwnership(req, pet)
+            // make sure the user owns the pet
+            requireOwnership(req, pet)
 
-        // update that toy with the req body
-        theRating.set(req.body.rating)
+            // update that rating with the req body
+            theRating.set(req.body.rating)
 
-        return pet.save()
-    })
-    .then(pet => res.sendStatus(204))
-    .catch(next)
+            return pet.save()
+        })
+        .then(pet => res.sendStatus(204))
+        .catch(next)
 })
 
 
-
-// DESTROY a toy
-// DELETE -> /toys/<pet_id>/<toy_id>
+// //////////////////////////////////////////
+// DESTROY a rating
+// //////////////////////////////////////////
+// DELETE -> /ratings/<pet_id>/<rating_id>
 router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
     const { petId, ratingId } = req.params
 
@@ -76,13 +77,13 @@ router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
     Pet.findById(petId)
         .then(handle404)
         .then(pet => {
-            // get the specific toy
+            // get the specific rating
             const theRating = pet.rating.id(ratingId)
 
             // make sure the user owns the pet
             requireOwnership(req, pet)
 
-            // update that toy with the req body
+            // update that rating with the req body
             theRating.remove()
 
             return pet.save()
@@ -91,4 +92,7 @@ router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
         .catch(next)
 })
 
+/////////////////////////////////////////
+// Export Router
+/////////////////////////////////////////
 module.exports = router

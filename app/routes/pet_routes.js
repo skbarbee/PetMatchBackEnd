@@ -59,9 +59,6 @@ router.get('/petmatch/:id', (req, res, next) => {
 
 })
 
-
-
-
 // ////////////////////////////
 // Create
 ///////////////////////////////
@@ -112,5 +109,7 @@ router.delete('/petmatch/:id', requireToken, (req, res, next) => {
         .catch(next)
 })
 
-
+/////////////////////////////////////////
+// Export Router
+/////////////////////////////////////////
 module.exports = router

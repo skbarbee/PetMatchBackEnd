@@ -10,7 +10,7 @@ const meetSchema = new mongoose.Schema({
     },
     where: {
         type: String,
-    }, 
+    },
 }, {
     timestamps: true,
 })

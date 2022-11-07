@@ -25,7 +25,9 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
+// //////////////////////////////////////////
 // SIGN UP
+// //////////////////////////////////////////
 // POST /sign-up
 router.post('/sign-up', (req, res, next) => {
 	// start a promise chain, so that any errors will pass to `handle`
@@ -59,7 +61,9 @@ router.post('/sign-up', (req, res, next) => {
 		.catch(next)
 })
 
+// //////////////////////////////////////////
 // SIGN IN
+// //////////////////////////////////////////
 // POST /sign-in
 router.post('/sign-in', (req, res, next) => {
 	const pw = req.body.credentials.password
@@ -99,7 +103,9 @@ router.post('/sign-in', (req, res, next) => {
 		.catch(next)
 })
 
+// //////////////////////////////////////////
 // CHANGE password
+// //////////////////////////////////////////
 // PATCH /change-password
 router.patch('/change-password', requireToken, (req, res, next) => {
 	let user
@@ -133,6 +139,10 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
+// //////////////////////////////////////////
+// SignOut
+// Destroy the session
+// //////////////////////////////////////////
 router.delete('/sign-out', requireToken, (req, res, next) => {
 	// create a new random token for the user, invalidating the current one
 	req.user.token = crypto.randomBytes(16)
@@ -143,4 +153,7 @@ router.delete('/sign-out', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
+/////////////////////////////////////////
+// Export Router
+/////////////////////////////////////////
 module.exports = router

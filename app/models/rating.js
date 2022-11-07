@@ -15,18 +15,15 @@ const ratingSchema = new mongoose.Schema({
 		type: Boolean,
 	},
 	author: {
-        type: String,
+		type: String,
 		ref: 'User',
 		required: true,
-    },
+	},
 }, {
-		timestamps: true,
-		toObject: { virtuals: true },
-		toJSON: { virtuals: true }
-	}
+	timestamps: true,
+	toObject: { virtuals: true },
+	toJSON: { virtuals: true }
+}
 )
-	
-	
-	
-	module.exports = ratingSchema
-	
+
+module.exports = ratingSchema
