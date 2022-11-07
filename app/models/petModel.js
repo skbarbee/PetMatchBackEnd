@@ -32,6 +32,7 @@ const petSchema = new mongoose.Schema(
 		rating: [ratingSchema],
 		meets: [meetSchema],
 		petMessages: [petMessageSchema],
+		// Remove double `meets` field. Both are doing the same thing.
 		meets: [meetSchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -47,6 +48,7 @@ const petSchema = new mongoose.Schema(
 )
 
 petSchema.virtual('ratingIcon').get(function () {
+	// Super cute!!!
 	if (this.typeOfPet === "DOG") {
 		return " out of 5 bones"
 	} else if (this.typeOfPet === "CAT") {
