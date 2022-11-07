@@ -29,6 +29,7 @@ router.post('/petMessages/:petId', removeBlanks, (req, res, next) => {
         .then(pet => {
             // push the petMessage into the pet's petMessage array and retunr the saved pet
             pet.petMessages.push(petMessages)
+            // Remove console log or comment it out
             console.log("this is the pet", pet)
             return pet.save()
         })
@@ -59,6 +60,7 @@ router.patch('/petMessages/:petId/:petMessageId', requireToken, removeBlanks, (r
             return pet.save()
 
         })
+        // Can remove `pet` here. It's not being used in the scope of the function
         .then(pet => res.sendStatus(204))
         .catch(next)
 })
@@ -81,6 +83,7 @@ router.delete('/petMessages/:petId/:petMessageId', requireToken, (req, res, next
 
             return pet.save()
         })
+        // Can remove `pet` here. It's not being used in the scope of the function
         .then(pet => res.sendStatus(204))
         .catch(next)
 })

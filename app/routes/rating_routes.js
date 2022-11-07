@@ -32,6 +32,7 @@ router.post('/rating/:petId', requireToken, removeBlanks, (req, res, next) => {
     Pet.findById(petId)
         .then((pet) => {
             pet.rating.push(rating)
+            // Remove console logs or comment them out
             console.log("this is pet.rating\n", pet.rating)
             console.log(rating)
             return pet.save()
@@ -61,6 +62,7 @@ router.patch('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
 
             return pet.save()
         })
+        // Can remove `pet` here. It's not being used in the scope of the function
         .then(pet => res.sendStatus(204))
         .catch(next)
 })
@@ -88,6 +90,7 @@ router.delete('/rating/:petId/:ratingId', requireToken, (req, res, next) => {
 
             return pet.save()
         })
+        // Can remove `pet` here. It's not being used in the scope of the function
         .then(pet => res.sendStatus(204))
         .catch(next)
 })
